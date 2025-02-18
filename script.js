@@ -96,6 +96,24 @@ function removeFromCart(index) {
 }
 
 // Process payment
+// function processPayment() {
+//   let total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+//   let tax = total * 0.07;
+//   let grandTotal = total + tax;
+//   let cashReceived = parseFloat(document.getElementById("cash-received").value);
+//   let change = cashReceived - grandTotal;
+//   if (cashReceived >= grandTotal) {
+//     document.getElementById(
+//       "receipt-details"
+//     ).innerHTML = `Subtotal: $${total.toFixed(2)}<br>
+//             Tax (7%): $${tax.toFixed(2)}<br>
+//             Grand Total: $${grandTotal.toFixed(2)}<br>
+//             Cash Received: $${cashReceived.toFixed(2)}<br>
+//             Change: $${change.toFixed(2)}`;
+//   } else {
+//     alert("Insufficient cash received.");
+//   }
+// }
 function processPayment() {
   let total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   let tax = total * 0.07;
@@ -103,16 +121,32 @@ function processPayment() {
   let cashReceived = parseFloat(document.getElementById("cash-received").value);
   let change = cashReceived - grandTotal;
   if (cashReceived >= grandTotal) {
-    document.getElementById(
-      "receipt-details"
-    ).innerHTML = `Subtotal: $${total.toFixed(2)}<br>
-            Tax (7%): $${tax.toFixed(2)}<br>
-            Grand Total: $${grandTotal.toFixed(2)}<br>
-            Cash Received: $${cashReceived.toFixed(2)}<br>
-            Change: $${change.toFixed(2)}`;
+    let receiptContent = `
+      Subtotal: $${total.toFixed(2)}<br>
+      Tax (7%): $${tax.toFixed(2)}<br>
+      Grand Total: $${grandTotal.toFixed(2)}<br>
+      Cash Received: $${cashReceived.toFixed(2)}<br>
+      Change: $${change.toFixed(2)}
+    `;
+    document.getElementById("receipt-details").innerHTML = receiptContent;
+
+    // Add Print and Download buttons
+    let buttons = `
+      <button onclick="printReceipt()">Print Receipt</button>
+    `;
+    document.getElementById("receipt-details").innerHTML += buttons;
   } else {
     alert("Insufficient cash received.");
   }
+}
+
+// Print the receipt
+function printReceipt() {
+  let receiptContent = document.getElementById("receipt-details").innerHTML;
+  let printWindow = window.open();
+  printWindow.document.write(`<html><body>${receiptContent}</body></html>`);
+  printWindow.document.close();
+  printWindow.print();
 }
 
 // Initialize pages
