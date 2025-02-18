@@ -1,0 +1,40 @@
+<!-- transaction.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transaction</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <h2>Transaction</h2>
+    <label for="product-select">Select Product:</label>
+    <select id="product-select"></select>
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" required />
+    <button onclick="addToCart()">Add to Cart</button>
+    <h3>Cart</h3>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Total Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="cart-body"></tbody>
+    </table>
+    <h3>Payment</h3>
+    <label for="cash-received">Cash Received:</label>
+    <input type="number" id="cash-received" required />
+    <button onclick="processPayment()">Process Payment</button>
+    <h3>Receipt</h3>
+    <div id="receipt-details"></div>
+    <script>
+      loadProductsForTransaction();
+    </script>
+  </body>
+</html>
